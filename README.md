@@ -1,7 +1,7 @@
 # @leonsilicon
 
 delusional hacker-founder\
-world's fastest coder (probably not, but it makes for a catchy tagline :)\
+world's fastest coder (probably not actually, but it makes for a catchy tagline :)\
 co-founder of [tunnel.dev](https://tunnel.dev) (neo '23)
 
 ## dev stuff
