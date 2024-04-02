@@ -1,16 +1,15 @@
-### Hi there 👋
+delusional hacker-founder
+world's fastest coder (probably not, but it makes for a catchy tagline :)
+co-founder of [tunnel.dev](https://tunnel.dev) (neo '23)
 
-<!--
-**leonsilicon/leonsilicon** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## dev stuff
+[my macOS configs](https://github.com/leonsilicon/macos-configs)
 
-Here are some ideas to get you started:
+## socials
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+never thought i'd be a content creator but a friend from neo convinced me to make content for developers /shrug
+
+[tiktok](https://tiktok.com/@leonsilicon)
+[instagram](https://instagram.com/leonsilicon)
+[twitter](https://twitter.com/leonsilicon)
+[youtube](https://youtube.com/@leonsilicon)
