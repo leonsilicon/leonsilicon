@@ -12,7 +12,7 @@ co-founder of [tunnel.dev](https://tunnel.dev) (neo '23)
 
 never thought i'd be posting regularly on social media but my friends said i'd be a great content creator and turns out they were right 😅
 
-[tiktok](https://tiktok.com/@leonsilicon)\
-[instagram](https://instagram.com/leonsilicon)\
-[twitter](https://twitter.com/leonsilicon)\
-[youtube](https://youtube.com/@leonsilicon)
+[tiktok](https://tiktok.com/@leonsilicon) (@leonsilicon)\
+[instagram](https://instagram.com/leonsilicon) (@leonsilicon)\
+[twitter](https://twitter.com/leonsilicon) (@leonsilicon)\
+[youtube](https://youtube.com/@leonsilicon) (@leonsilicon)
