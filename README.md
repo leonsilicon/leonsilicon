@@ -8,7 +8,7 @@ co-founder of [tunnel.dev](https://tunnel.dev) (neo '23)
 
 ## socials
 
-never thought i'd be posting regularly on social media but a friend from neo said i'd be a great content creator and turns out he was right 😅
+never thought i'd be posting regularly on social media but my friends said i'd be a great content creator and turns out they were right 😅
 
 [tiktok](https://tiktok.com/@leonsilicon)\
 [instagram](https://instagram.com/leonsilicon)\
