@@ -99,12 +99,12 @@ const cropsData = await Promise.all(
 const getCropImgSrc = (filename: string) =>
 	`https://raw.githubusercontent.com/leonsilicon/leonsilicon/main/generator/generated/${filename}`;
 const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
-const getImgHeight = (height: number) => `${(height / imageHeight) * 100}%`;
+const getImgHeight = (height: number) => height;
 
 const readme = cropsData.map(({ filename, height, href, width }) => {
 	const imgHtml = `<img src="${getCropImgSrc(filename)}" height="${
 		getImgHeight(height)
-	}" width="${width}"/>`;
+	}" width="${getImgWidth(width)}"/>`;
 	const markdown = href === null ?
 		`<picture>${imgHtml}</picture>` :
 		`<a href="${href}">${imgHtml}</a>`;
