@@ -33,6 +33,7 @@ const crops: {
 
 for (const row of imageConfig.rows) {
 	let currentX = 0;
+
 	for (const link of row.links) {
 		const { leftX, rightX, href } = link;
 
@@ -97,15 +98,16 @@ const cropsData = await Promise.all(
 
 const getCropImgSrc = (filename: string) =>
 	`https://raw.githubusercontent.com/leonsilicon/leonsilicon/main/generator/generated/${filename}`;
+const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
+const getImgHeight = (height: number) => `${(height / imageHeight) * 100}%`;
 
 const readme = cropsData.map(({ filename, height, href, width }) => {
+	const imgHtml = `<img src="${getCropImgSrc(filename)}" height="${
+		getImgHeight(height)
+	}" width="${width}"/>`;
 	const markdown = href === null ?
-		`<picture><img src="${
-			getCropImgSrc(filename)
-		}" width="${width}" height="${height}" /></picture>` :
-		`<a href="${href}"><img src="${
-			getCropImgSrc(filename)
-		}" height="${height}" width="${width}"/></a>`;
+		`<picture>${imgHtml}</picture>` :
+		`<a href="${href}">${imgHtml}</a>`;
 	return markdown;
 }).join('');
 
