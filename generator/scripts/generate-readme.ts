@@ -107,10 +107,7 @@ const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
 const getImgHeight = (height: number) => height;
 
 const readmeFooter = outdent({ trimLeadingNewline: false })`
-	<p align='center'>
-	<a name="interactive-note"></a>
 	###### The above image is interactive! Try clicking on the tabs :)
-	</p>
 `;
 
 const readme = cropsData.map(({ filename, height, href, width }) => {
@@ -124,6 +121,6 @@ const readme = cropsData.map(({ filename, height, href, width }) => {
 }).join('') + readmeFooter;
 
 await fs.promises.writeFile(
-	path.join(monorepoDirpath, 'readme.md'),
+	path.join(monorepoDirpath, '../readme.md'),
 	readme,
 );
