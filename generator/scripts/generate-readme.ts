@@ -5,6 +5,7 @@ import { getMonorepoDirpath } from 'get-monorepo-root';
 import { hash } from 'hasha';
 import fs from 'node:fs';
 import nullthrows from 'nullthrows-es';
+import { outdent } from 'outdent';
 import path from 'pathe';
 import sharp from 'sharp';
 
@@ -35,7 +36,11 @@ for (const row of imageConfig.rows) {
 	let currentX = 0;
 
 	for (const link of row.links) {
-		const { leftX, rightX, href } = link;
+		const { leftX, rightX, href: unparsedHref } = link;
+		const href = unparsedHref.replace(
+			'${TIKTOK_URL}',
+			'https://tiktok.com/@leonsilicon',
+		);
 
 		// If this image link is not directly next to the previous image link,
 		// we need to crop the image inbetween and create a non-link image
@@ -101,6 +106,11 @@ const getCropImgSrc = (filename: string) =>
 const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
 const getImgHeight = (height: number) => height;
 
+const readmeFooter = outdent({ trimLeadingNewline: false })`
+	<a name="custom_anchor_name"></a>
+	<p>The above image is interactive! Try clicking on the tabs :)</p>
+`;
+
 const readme = cropsData.map(({ filename, height, href, width }) => {
 	const imgHtml = `<img src="${getCropImgSrc(filename)}" height="${
 		getImgHeight(height)
@@ -109,7 +119,7 @@ const readme = cropsData.map(({ filename, height, href, width }) => {
 		`<picture>${imgHtml}</picture>` :
 		`<a href="${href}">${imgHtml}</a>`;
 	return markdown;
-}).join('');
+}).join('') + readmeFooter;
 
 await fs.promises.writeFile(
 	path.join(monorepoDirpath, 'readme.md'),
