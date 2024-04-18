@@ -1,0 +1,7 @@
+{
+	"name": "@-/generator",
+	"type": "module",
+	"devDependencies": {
+		"dprint": "^0.45.1"
+	}
+}
