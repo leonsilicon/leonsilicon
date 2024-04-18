@@ -36,12 +36,17 @@
 				{
 					"leftX": 474,
 					"rightX": 599,
-					"href": "https://youtube.com/@leonsilicon"
+					"href": "https://x.com/leonsilicon"
 				},
 				{
 					"leftX": 601,
 					"rightX": 726,
-					"href": "https://x.com/leonsilicon"
+					"href": "https://youtube.com/@leonsilicon"
+				},
+				{
+					"leftX": 812,
+					"rightX": 840,
+					"href": "https://github.com/leonsilicon/leonsilicon/main/generator"
 				}
 			]
 		},
