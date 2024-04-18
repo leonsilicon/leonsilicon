@@ -113,11 +113,12 @@ const readmeFooter = outdent({ trimLeadingNewline: false })`
 `;
 
 const readme = cropsData.map(({ filename, height, href, width }) => {
-	const imgHtml = `<img src="${getCropImgSrc(filename)}" height="${
+	const imgSrc = getCropImgSrc(filename)
+	const imgHtml = `<img src="${imgSrc}" height="${
 		getImgHeight(height)
 	}" width="${getImgWidth(width)}"/>`;
 	const markdown = href === null ?
-		`<picture>${imgHtml}</picture>` :
+		`<picture><source media="(prefers-color-scheme: light)" srcset="${imgSrc}">${imgHtml}</picture>` :
 		`<a href="${href}">${imgHtml}</a>`;
 	return markdown;
 }).join('') + readmeFooter;
