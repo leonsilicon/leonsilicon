@@ -16,5 +16,3 @@ never thought i'd be posting regularly on social media but my friends said i'd b
 [instagram](https://instagram.com/leonsilicon)\
 [twitter](https://twitter.com/leonsilicon)\
 [youtube](https://youtube.com/@leonsilicon)
-
-<picture><img src="https://raw.githubusercontent.com/leonsilicon/test/main/white-square.jpg" width="100%" /></picture>

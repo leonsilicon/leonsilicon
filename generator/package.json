@@ -4,8 +4,17 @@
 	"imports": {
 		"#data/*": "./data/*"
 	},
+	"scripts": {
+		"generate-readme": "./scripts/generate-readme.ts"
+	},
 	"devDependencies": {
+		"@types/node": "^20.12.7",
 		"dprint": "^0.45.1",
+		"hasha": "^6.0.0",
+		"get-monorepo-root": "^1.2.1",
+		"nullthrows-es": "^1.0.1",
+		"pathe": "^1.1.2",
+		"sharp": "^0.33.3",
 		"tsx": "^4.7.2"
 	}
 }
