@@ -104,7 +104,7 @@ const cropsData = await Promise.all(
 // We use GitHub pages to host our static images since it seems like that's more
 // reliable compared to using `raw.githubusercontent.com` URLs.
 const getCropImgSrc = (filename: string) =>
-	`https://leonsilicon.github.io/leonsilicon/leonsilicon/generator/generated/${filename}`;
+	`https://leonsilicon.github.io/leonsilicon/generator/generated/${filename}`;
 const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
 const getImgHeight = (height: number) => height;
 
