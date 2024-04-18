@@ -107,7 +107,7 @@ const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
 const getImgHeight = (height: number) => height;
 
 const readmeFooter = outdent({ trimLeadingNewline: false })`
-	###### **Note:** The above image is interactive! Try clicking on the tabs :)
+	###### 👆 The above image is interactive! Try clicking on the tabs :)
 `;
 
 const readme = cropsData.map(({ filename, height, href, width }) => {
