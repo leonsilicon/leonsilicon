@@ -14,6 +14,7 @@
 		"get-monorepo-root": "^1.2.1",
 		"nullthrows-es": "^1.0.1",
 		"pathe": "^1.1.2",
+		"playwright": "^1.43.1",
 		"sharp": "^0.33.3",
 		"tsx": "^4.7.2"
 	}
