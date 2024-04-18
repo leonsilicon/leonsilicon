@@ -1,7 +1,11 @@
 {
 	"name": "@-/generator",
 	"type": "module",
+	"imports": {
+		"#data/*": "./data/*"
+	},
 	"devDependencies": {
-		"dprint": "^0.45.1"
+		"dprint": "^0.45.1",
+		"tsx": "^4.7.2"
 	}
 }
