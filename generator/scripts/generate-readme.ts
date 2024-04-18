@@ -121,6 +121,6 @@ const readme = cropsData.map(({ filename, height, href, width }) => {
 }).join('') + readmeFooter;
 
 await fs.promises.writeFile(
-	path.join(monorepoDirpath, '../readme.md'),
+	path.join(monorepoDirpath, '../readme.markdown'),
 	readme,
 );
