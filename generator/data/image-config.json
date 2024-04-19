@@ -44,6 +44,11 @@
 					"href": "https://youtube.com/@leonsilicon"
 				},
 				{
+					"leftX": 732,
+					"rightX": 762,
+					"href": "https://github.com/leonsilicon/leonsilicon/issues/new"
+				},
+				{
 					"leftX": 812,
 					"rightX": 840,
 					"href": "https://github.com/leonsilicon/leonsilicon/tree/main/generator"
