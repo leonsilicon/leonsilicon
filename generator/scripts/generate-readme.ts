@@ -118,7 +118,7 @@ const readme = cropsData.map(({ filename, height, href, width }) => {
 		getImgHeight(height)
 	}" width="${getImgWidth(width)}"/>`;
 	const markdown = href === null ?
-		`<picture><source media="(prefers-color-scheme: light)" srcset="${imgSrc}">${imgHtml}</picture>` :
+		`<picture><source media="(prefers-color-scheme: light)" srcset="${imgSrc}"><source media="(prefers-color-scheme: dark)" srcset="${imgSrc}">${imgHtml}</picture>` :
 		`<a href="${href}">${imgHtml}</a>`;
 	return markdown;
 }).join('') + readmeFooter;

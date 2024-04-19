@@ -6,7 +6,7 @@
 				{
 					"leftX": 21,
 					"rightX": 33,
-					"href": "#user-36966635-pinned-items-reorder-form"
+					"href": "#js-contribution-activity"
 				},
 				{
 					"leftX": 41,
@@ -52,11 +52,42 @@
 		},
 		{
 			"bottomY": 79,
+			"links": [
+				{
+					"leftX": 75,
+					"rightX": 88,
+					"href": "https://github.com/leonsilicon"
+				},
+				{
+					"leftX": 104,
+					"rightX": 840,
+					"href": "https://leonsilicon.com"
+				}
+			]
+		},
+		{
+			"bottomY": 190,
 			"links": []
 		},
 		{
-			"bottomY": 262,
-			"links": []
+			"bottomY": 250,
+			"links": [
+				{
+					"leftX": 173,
+					"rightX": 307,
+					"href": "https://linkedin.com/in/leonsilicon"
+				},
+				{
+					"leftX": 365,
+					"rightX": 480,
+					"href": "https://devpost.com/leonsilicon"
+				},
+				{
+					"leftX": 538,
+					"rightX": 672,
+					"href": "https://tiktok.com/@leonsilicon"
+				}
+			]
 		},
 		{
 			"bottomY": 518,
@@ -64,7 +95,7 @@
 				{
 					"leftX": 142,
 					"rightX": 511,
-					"href": "https://github.com/leonsilicon/leonsilicon/tree/main/readme.md#-leonsilicon"
+					"href": "https://github.com/leonsilicon/leonsilicon/bolb/main/README.md#leonsilicon"
 				},
 				{
 					"leftX": 540,
@@ -85,7 +116,38 @@
 		},
 		{
 			"bottomY": 588,
-			"links": []
+			"links": [
+				{
+					"leftX": 297,
+					"rightX": 338,
+					"href": "https://tunnel.dev"
+				},
+				{
+					"leftX": 338,
+					"rightX": 381,
+					"href": "https://github.com/leonsilicon/leonsilicon/issues/new"
+				},
+				{
+					"leftX": 390,
+					"rightX": 420,
+					"href": "https://github.com/leonsilicon"
+				},
+				{
+					"leftX": 426,
+					"rightX": 456,
+					"href": "https://github.com/davidarthurthomas"
+				},
+				{
+					"leftX": 498,
+					"rightX": 522,
+					"href": "https://discord.gg/zMw6ZF2qCf"
+				},
+				{
+					"leftX": 516,
+					"rightX": 540,
+					"href": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+				}
+			]
 		}
 	]
 }
