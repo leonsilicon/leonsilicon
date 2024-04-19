@@ -83,8 +83,8 @@ const cropsData = await Promise.all(
 		const { href, ...dimensions } = crop;
 		const buffer = await image.clone().extract(dimensions).toFormat('jpg')
 			.toBuffer();
-		const bufferHash = (await hash(buffer)).slice(0, 7);
-		const filename = `${i.toString().padStart(3, '0')}.${bufferHash}.jpg`;
+		const bufferHash = await hash(buffer);
+		const filename = `${bufferHash}.jpg`;
 		const filepath = path.join(
 			monorepoDirpath,
 			'generated',
@@ -113,7 +113,7 @@ const readmeFooter = outdent({ trimLeadingNewline: false })`
 `;
 
 const readme = cropsData.map(({ filename, height, href, width }) => {
-	const imgSrc = getCropImgSrc(filename)
+	const imgSrc = getCropImgSrc(filename);
 	const imgHtml = `<img src="${imgSrc}" height="${
 		getImgHeight(height)
 	}" width="${getImgWidth(width)}"/>`;
