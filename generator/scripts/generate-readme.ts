@@ -38,8 +38,8 @@ for (const row of imageConfig.rows) {
 	for (const link of row.links) {
 		const { leftX, rightX, href: unparsedHref } = link;
 		const href = unparsedHref.replace(
-			'${TIKTOK_URL}',
-			'https://tiktok.com/@leonsilicon',
+			'${LATEST_CONTENT_URL}',
+			'https://www.tiktok.com/@leonsilicon/video/7350626104736025862',
 		);
 
 		// If this image link is not directly next to the previous image link,
