@@ -146,6 +146,11 @@
 					"leftX": 516,
 					"rightX": 540,
 					"href": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+				},
+				{
+					"leftX": 549,
+					"rightX": 704,
+					"href": "${TIKTOK_URL}"
 				}
 			]
 		}
