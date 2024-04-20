@@ -51,7 +51,7 @@ export async function generateImagePieces(
 					width: leftX - currentX,
 					height: row.bottomY - currentY,
 					href: null,
-					imgSrc,
+					imgSrc: undefined,
 				});
 			}
 

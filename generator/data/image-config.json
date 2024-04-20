@@ -75,7 +75,7 @@
 			"links": []
 		},
 		{
-			"bottomY": 250,
+			"bottomY": 244,
 			"links": [
 				{
 					"leftX": 173,
@@ -91,6 +91,22 @@
 					"leftX": 538,
 					"rightX": 672,
 					"href": "https://tiktok.com/@leonsilicon"
+				}
+			]
+		},
+		{
+			"bottomY": 279,
+			"links": [
+				{
+					"leftX": 142,
+					"rightX": 511,
+					"href": "https://github.com/leonsilicon/leonsilicon/blob/main/README.md#leonsilicon",
+					"imgSrc": "${README_MD_SRC}"
+				},
+				{
+					"leftX": 540,
+					"rightX": 704,
+					"href": "${LATEST_CONTENT_URL}"
 				}
 			]
 		},

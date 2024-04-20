@@ -82,9 +82,27 @@ export async function convertReadmeMdToImage({
 		`generated/readme.${imgHash}.png`,
 	);
 
-	sharp(img.data)
+	const image = sharp(img.data);
+	const { width, height } = await image.metadata();
+	if (!width || !height) {
+		throw new Error('Could not get image dimensions');
+	}
+
+	await image
 		.resize(369, 230)
-		.toFile(readmeMdImageFilepath);
+		.extract({
+			left: 1,
+			top: 1,
+			width: 369 - 2,
+			height: 230 - 2,
+		})
+		.extend({
+			top: 1,
+			bottom: 1,
+			left: 1,
+			right: 1,
+			background: '#ffffff',
+		}).toFile(readmeMdImageFilepath);
 
 	return { filepath: readmeMdImageFilepath };
 }
