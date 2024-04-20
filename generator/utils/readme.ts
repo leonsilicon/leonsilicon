@@ -14,22 +14,24 @@ export async function generateReadmeMarkdownFile({
 	imageWidth,
 	darkModeImagePieces,
 	lightModeImagePieces,
-	readmeMdImageFilepath,
+	readmeMdImageFilepaths,
 }: {
 	imageWidth: number;
 	darkModeImagePieces: ImagePiece[];
 	lightModeImagePieces: ImagePiece[];
-	readmeMdImageFilepath: string;
+	readmeMdImageFilepaths: { light: string; dark: string };
 }) {
 	// We use GitHub pages to host our static images since it seems like that's more
 	// reliable compared to using `raw.githubusercontent.com` URLs.
-	const getImagePieceSrc = ({ filepath, imgSrc }: ImagePiece) =>
+	const getImagePieceSrc = (
+		{ filepath, imgSrc, theme }: ImagePiece & { theme: 'light' | 'dark' },
+	) =>
 		`https://leonsilicon.github.io/leonsilicon/generator/generated/${
 			imgSrc === undefined ?
 				path.basename(filepath) :
 				imgSrc.replace(
 					'${README_MD_SRC}',
-					path.basename(readmeMdImageFilepath),
+					path.basename(readmeMdImageFilepaths[theme]),
 				)
 		}`;
 
@@ -43,8 +45,14 @@ export async function generateReadmeMarkdownFile({
 		([lightModeImagePiece, darkModeImagePiece]) => {
 			const { href } = lightModeImagePiece;
 			const imgWidth = getImgWidth(lightModeImagePiece.width);
-			const lightModeImgSrc = getImagePieceSrc(lightModeImagePiece);
-			const darkModeImgSrc = getImagePieceSrc(darkModeImagePiece);
+			const lightModeImgSrc = getImagePieceSrc({
+				...lightModeImagePiece,
+				theme: 'light',
+			});
+			const darkModeImgSrc = getImagePieceSrc({
+				...darkModeImagePiece,
+				theme: 'dark',
+			});
 
 			const pictureHtml = outdent`
 				<picture><source media="(prefers-color-scheme: light)" srcset="${lightModeImgSrc}"><source media="(prefers-color-scheme: dark)" srcset="${darkModeImgSrc}"><img src="${lightModeImgSrc}" width="${imgWidth}" /></picture>
@@ -77,32 +85,37 @@ export async function convertReadmeMdToImage({
 	});
 
 	const imgHash = await hash(img.data);
-	const readmeMdImageFilepath = path.join(
-		monorepoDirpath,
-		`generated/readme.${imgHash}.png`,
-	);
-
 	const image = sharp(img.data);
 	const { width, height } = await image.metadata();
 	if (!width || !height) {
 		throw new Error('Could not get image dimensions');
 	}
 
-	await image
-		.resize(369, 230)
-		.extract({
-			left: 1,
-			top: 1,
-			width: 369 - 2,
-			height: 230 - 2,
-		})
-		.extend({
-			top: 1,
-			bottom: 1,
-			left: 1,
-			right: 1,
-			background: '#ffffff',
-		}).toFile(readmeMdImageFilepath);
+	const filepaths = {} as { light: string; dark: string };
 
-	return { filepath: readmeMdImageFilepath };
+	await Promise.all((['light', 'dark'] as const).map(async (theme) => {
+		const readmeMdImageFilepath = path.join(
+			monorepoDirpath,
+			`generated/readme-${theme}.${imgHash}.png`,
+		);
+
+		await image.clone().resize(369, 230)
+			.extract({
+				left: 1,
+				top: 1,
+				width: 369 - 2,
+				height: 230 - 2,
+			})
+			.extend({
+				top: 1,
+				bottom: 1,
+				left: 1,
+				right: 1,
+				background: '#000000',
+			}).toFile(readmeMdImageFilepath);
+
+		filepaths[theme] = readmeMdImageFilepath;
+	}));
+
+	return filepaths;
 }
