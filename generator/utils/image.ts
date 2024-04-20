@@ -99,7 +99,7 @@ export async function generateImagePieces(
 				href,
 				width: dimensions.width,
 				height: dimensions.height,
-				imgSrc,
+				imgSrc
 			};
 		}),
 	);
