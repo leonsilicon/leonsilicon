@@ -126,16 +126,6 @@
 			]
 		},
 		{
-			"bottomY": 540,
-			"links": [
-				{
-					"leftX": 540,
-					"rightX": 704,
-					"href": "${LATEST_CONTENT_URL}"
-				}
-			]
-		},
-		{
 			"bottomY": 588,
 			"links": [
 				{
