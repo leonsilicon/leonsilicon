@@ -24,7 +24,6 @@ export async function generateReadmeFile({
 			path.basename(filepath)
 		}`;
 	const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
-	const getImgHeight = (height: number) => height;
 
 	const readmeFooter = outdent({ trimLeadingNewline: false })`
 		###### 👆 The above image is interactive! Try clicking on the tabs :)
@@ -33,14 +32,13 @@ export async function generateReadmeFile({
 	const readme = zip(lightModeImagePieces, darkModeImagePieces).map(
 		([lightModeImagePiece, darkModeImagePiece]) => {
 			const { href } = lightModeImagePiece;
-			const imgHeight = getImgHeight(lightModeImagePiece.height);
 			const imgWidth = getImgWidth(lightModeImagePiece.width);
 
 			const lightModeImgSrc = getCropImgSrc(lightModeImagePiece.filepath);
 			const darkModeImgSrc = getCropImgSrc(darkModeImagePiece.filepath);
 
 			const pictureHtml = outdent`
-				<picture><source media="(prefers-color-scheme: light)" srcset="${lightModeImgSrc}"><source media="(prefers-color-scheme: dark)" srcset="${darkModeImgSrc}"><img src="${lightModeImgSrc}" height="${imgHeight}" width="${imgWidth}" /></picture>
+				<picture><source media="(prefers-color-scheme: light)" srcset="${lightModeImgSrc}"><source media="(prefers-color-scheme: dark)" srcset="${darkModeImgSrc}"><img src="${lightModeImgSrc}" width="${imgWidth}" /></picture>
 			`;
 
 			const markdown = href === null ?
