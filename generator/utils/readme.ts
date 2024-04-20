@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import { outdent } from 'outdent';
 import path from 'pathe';
+import sharp from 'sharp';
 import { monorepoDirpath } from './paths.ts';
 // @ts-expect-error: bad typings
 import { convert2img } from 'mdimg';
@@ -81,6 +82,9 @@ export async function convertReadmeMdToImage({
 		`generated/readme.${imgHash}.png`,
 	);
 
-	await fs.promises.writeFile(readmeMdImageFilepath, img.data);
+	sharp(img.data)
+		.resize(369, 230)
+		.toFile(readmeMdImageFilepath);
+
 	return { filepath: readmeMdImageFilepath };
 }
