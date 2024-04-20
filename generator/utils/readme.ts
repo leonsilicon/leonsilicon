@@ -14,12 +14,14 @@ export async function generateReadmeMarkdownFile({
 	imageWidth,
 	darkModeImagePieces,
 	lightModeImagePieces,
-	readmeMdImageFilepaths,
+	lightModeReadmeMdImageFilepath,
+	darkModeReadmeMdImageFilepath,
 }: {
 	imageWidth: number;
 	darkModeImagePieces: ImagePiece[];
 	lightModeImagePieces: ImagePiece[];
-	readmeMdImageFilepaths: { light: string; dark: string };
+	lightModeReadmeMdImageFilepath: string;
+	darkModeReadmeMdImageFilepath: string;
 }) {
 	// We use GitHub pages to host our static images since it seems like that's more
 	// reliable compared to using `raw.githubusercontent.com` URLs.
@@ -31,7 +33,11 @@ export async function generateReadmeMarkdownFile({
 				path.basename(filepath) :
 				imgSrc.replace(
 					'${README_MD_SRC}',
-					path.basename(readmeMdImageFilepaths[theme]),
+					path.basename(
+						theme === 'light' ?
+							lightModeReadmeMdImageFilepath :
+							darkModeReadmeMdImageFilepath,
+					),
 				)
 		}`;
 
@@ -75,13 +81,18 @@ export async function generateReadmeMarkdownFile({
 export async function convertReadmeMdToImage({
 	imageWidth,
 	imageHeight,
-}: { imageWidth: number; imageHeight: number }) {
+	theme,
+}: {
+	imageWidth: number;
+	imageHeight: number;
+	theme: 'light' | 'dark';
+}) {
 	const img = await convert2img({
 		mdFile: path.join(monorepoDirpath, '../README.md'),
 		outputFilename: await os.tmpdir(),
 		width: imageWidth,
 		height: imageHeight,
-		cssTemplate: 'github',
+		cssTemplate: theme === 'light' ? 'github' : 'githubdark',
 	});
 
 	const imgHash = await hash(img.data);
@@ -91,31 +102,26 @@ export async function convertReadmeMdToImage({
 		throw new Error('Could not get image dimensions');
 	}
 
-	const filepaths = {} as { light: string; dark: string };
+	const readmeMdImageFilepath = path.join(
+		monorepoDirpath,
+		`generated/readme-${theme}.${imgHash}.png`,
+	);
 
-	await Promise.all((['light', 'dark'] as const).map(async (theme) => {
-		const readmeMdImageFilepath = path.join(
-			monorepoDirpath,
-			`generated/readme-${theme}.${imgHash}.png`,
-		);
+	await image
+		.resize(369, 230)
+		.extract({
+			left: 1,
+			top: 1,
+			width: 369 - 2,
+			height: 230 - 2,
+		})
+		.extend({
+			top: 1,
+			bottom: 1,
+			left: 1,
+			right: 1,
+			background: theme === 'light' ? '#000000' : '#EEEEEE',
+		}).toFile(readmeMdImageFilepath);
 
-		await image.clone().resize(369, 230)
-			.extract({
-				left: 1,
-				top: 1,
-				width: 369 - 2,
-				height: 230 - 2,
-			})
-			.extend({
-				top: 1,
-				bottom: 1,
-				left: 1,
-				right: 1,
-				background: '#000000',
-			}).toFile(readmeMdImageFilepath);
-
-		filepaths[theme] = readmeMdImageFilepath;
-	}));
-
-	return filepaths;
+	return readmeMdImageFilepath;
 }

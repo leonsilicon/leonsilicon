@@ -28,13 +28,18 @@ if (!imageWidth || !imageHeight) {
 
 const spinner = ora('Generating README images...').start();
 
-const [lightModeImagePieces, darkModeImagePieces, readmeMdImageFilepaths] =
-	await Promise
-		.all([
-			generateImagePieces({ imageFilepath: lightModeImageFilepath }),
-			generateImagePieces({ imageFilepath: darkModeImageFilepath }),
-			convertReadmeMdToImage({ imageWidth, imageHeight }),
-		]);
+const [
+	lightModeImagePieces,
+	darkModeImagePieces,
+	lightModeReadmeMdImageFilepath,
+	darkModeReadmeMdImageFilepath,
+] = await Promise
+	.all([
+		generateImagePieces({ imageFilepath: lightModeImageFilepath }),
+		generateImagePieces({ imageFilepath: darkModeImageFilepath }),
+		convertReadmeMdToImage({ imageWidth, imageHeight, theme: 'light' }),
+		convertReadmeMdToImage({ imageWidth, imageHeight, theme: 'dark' }),
+	]);
 
 spinner.text = 'Generating README...';
 
@@ -42,7 +47,8 @@ await generateReadmeMarkdownFile({
 	lightModeImagePieces,
 	darkModeImagePieces,
 	imageWidth,
-	readmeMdImageFilepaths
+	lightModeReadmeMdImageFilepath,
+	darkModeReadmeMdImageFilepath,
 });
 
 spinner.succeed('README generated!');
