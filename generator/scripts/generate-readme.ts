@@ -18,7 +18,7 @@ await fs.promises.mkdir(generatedDirpath, { recursive: true });
 const lineHeight = 6;
 
 let currentY = 0;
-const image = sharp(path.join(monorepoDirpath, 'data/image.jpg'));
+const image = sharp(path.join(monorepoDirpath, 'data/image.png'));
 const { width: imageWidth, height: imageHeight } = await image.metadata();
 if (!imageWidth || !imageHeight) {
 	throw new Error('Could not get image dimensions');
@@ -81,10 +81,10 @@ for (const row of imageConfig.rows) {
 const cropsData = await Promise.all(
 	crops.map(async (crop, i) => {
 		const { href, ...dimensions } = crop;
-		const buffer = await image.clone().extract(dimensions).toFormat('jpg')
+		const buffer = await image.clone().extract(dimensions).toFormat('png')
 			.toBuffer();
 		const bufferHash = await hash(buffer);
-		const filename = `${bufferHash}.jpg`;
+		const filename = `${bufferHash}.png`;
 		const filepath = path.join(
 			monorepoDirpath,
 			'generated',
