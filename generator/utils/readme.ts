@@ -1,28 +1,37 @@
 import type { ImagePiece } from '#types';
-import { getMonorepoDirpath } from 'get-monorepo-root';
+import { hash } from 'hasha';
 import zip from 'just-zip-it';
 import fs from 'node:fs';
-import nullthrows from 'nullthrows-es';
+import os from 'node:os';
 import { outdent } from 'outdent';
 import path from 'pathe';
+import { monorepoDirpath } from './paths.ts';
+// @ts-expect-error: bad typings
+import { convert2img } from 'mdimg';
 
-export async function generateReadmeFile({
+export async function generateReadmeMarkdownFile({
 	imageWidth,
 	darkModeImagePieces,
 	lightModeImagePieces,
+	readmeMdImageFilepath,
 }: {
 	imageWidth: number;
 	darkModeImagePieces: ImagePiece[];
 	lightModeImagePieces: ImagePiece[];
+	readmeMdImageFilepath: string;
 }) {
-	const monorepoDirpath = nullthrows(getMonorepoDirpath(import.meta.url));
-
 	// We use GitHub pages to host our static images since it seems like that's more
 	// reliable compared to using `raw.githubusercontent.com` URLs.
-	const getCropImgSrc = (filepath: string) =>
+	const getImagePieceSrc = ({ filepath, imgSrc }: ImagePiece) =>
 		`https://leonsilicon.github.io/leonsilicon/generator/generated/${
-			path.basename(filepath)
+			imgSrc === undefined ?
+				path.basename(filepath) :
+				imgSrc.replace(
+					'${README_MD_SRC}',
+					path.basename(readmeMdImageFilepath),
+				)
 		}`;
+
 	const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
 
 	const readmeFooter = outdent({ trimLeadingNewline: false })`
@@ -33,9 +42,8 @@ export async function generateReadmeFile({
 		([lightModeImagePiece, darkModeImagePiece]) => {
 			const { href } = lightModeImagePiece;
 			const imgWidth = getImgWidth(lightModeImagePiece.width);
-
-			const lightModeImgSrc = getCropImgSrc(lightModeImagePiece.filepath);
-			const darkModeImgSrc = getCropImgSrc(darkModeImagePiece.filepath);
+			const lightModeImgSrc = getImagePieceSrc(lightModeImagePiece);
+			const darkModeImgSrc = getImagePieceSrc(darkModeImagePiece);
 
 			const pictureHtml = outdent`
 				<picture><source media="(prefers-color-scheme: light)" srcset="${lightModeImgSrc}"><source media="(prefers-color-scheme: dark)" srcset="${darkModeImgSrc}"><img src="${lightModeImgSrc}" width="${imgWidth}" /></picture>
@@ -53,4 +61,26 @@ export async function generateReadmeFile({
 		path.join(monorepoDirpath, '../readme.markdown'),
 		readme,
 	);
+}
+
+export async function convertReadmeMdToImage({
+	imageWidth,
+	imageHeight,
+}: { imageWidth: number; imageHeight: number }) {
+	const img = await convert2img({
+		mdFile: path.join(monorepoDirpath, '../README.md'),
+		outputFilename: await os.tmpdir(),
+		width: imageWidth,
+		height: imageHeight,
+		cssTemplate: 'github',
+	});
+
+	const imgHash = await hash(img.data);
+	const readmeMdImageFilepath = path.join(
+		monorepoDirpath,
+		`generated/readme.${imgHash}.png`,
+	);
+
+	await fs.promises.writeFile(readmeMdImageFilepath, img.data);
+	return { filepath: readmeMdImageFilepath };
 }

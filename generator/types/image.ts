@@ -3,4 +3,5 @@ export interface ImagePiece {
 	height: number;
 	href: string | null;
 	width: number;
+	imgSrc?: string;
 }

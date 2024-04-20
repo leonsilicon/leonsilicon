@@ -15,6 +15,8 @@
 		"get-monorepo-root": "^1.2.1",
 		"nullthrows-es": "^1.0.1",
 		"just-zip-it": "^3.2.0",
+		"mdimg": "^1.0.0",
+		"ora": "^8.0.1",
 		"outdent": "^0.8.0",
 		"pathe": "^1.1.2",
 		"playwright": "^1.43.1",

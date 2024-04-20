@@ -1,16 +1,14 @@
 import imageConfig from '#data/image-config.json';
 import type { ImagePiece } from '#types';
-import { getMonorepoDirpath } from 'get-monorepo-root';
 import { hash } from 'hasha';
 import fs from 'node:fs';
-import nullthrows from 'nullthrows-es';
 import path from 'pathe';
 import sharp from 'sharp';
+import { monorepoDirpath } from './paths.ts';
 
 export async function generateImagePieces(
 	{ imageFilepath }: { imageFilepath: string },
 ) {
-	const monorepoDirpath = nullthrows(getMonorepoDirpath(import.meta.url));
 	const generatedDirpath = path.join(monorepoDirpath, 'generated');
 
 	await fs.promises.rm(generatedDirpath, { recursive: true, force: true });
@@ -31,13 +29,14 @@ export async function generateImagePieces(
 		width: number;
 		height: number;
 		href: string | null;
+		imgSrc: string | undefined;
 	}[] = [];
 
 	for (const row of imageConfig.rows) {
 		let currentX = 0;
 
 		for (const link of row.links) {
-			const { leftX, rightX, href: unparsedHref } = link;
+			const { leftX, rightX, href: unparsedHref, imgSrc } = link;
 			const href = unparsedHref.replace(
 				'${LATEST_CONTENT_URL}',
 				'https://www.tiktok.com/@leonsilicon/video/7350626104736025862',
@@ -52,6 +51,7 @@ export async function generateImagePieces(
 					width: leftX - currentX,
 					height: row.bottomY - currentY,
 					href: null,
+					imgSrc,
 				});
 			}
 
@@ -61,6 +61,7 @@ export async function generateImagePieces(
 				width: rightX - leftX,
 				height: row.bottomY - currentY,
 				href,
+				imgSrc,
 			});
 
 			currentX = rightX;
@@ -73,6 +74,7 @@ export async function generateImagePieces(
 				width: imageWidth - currentX,
 				height: row.bottomY - currentY,
 				href: null,
+				imgSrc: undefined,
 			});
 		}
 
@@ -81,7 +83,7 @@ export async function generateImagePieces(
 
 	const imagePieces: ImagePiece[] = await Promise.all(
 		crops.map(async (crop) => {
-			const { href, ...dimensions } = crop;
+			const { href, imgSrc, ...dimensions } = crop;
 			const buffer = await image.clone().extract(dimensions).toFormat('png')
 				.toBuffer();
 			const bufferHash = await hash(buffer);
@@ -97,6 +99,7 @@ export async function generateImagePieces(
 				href,
 				width: dimensions.width,
 				height: dimensions.height,
+				imgSrc,
 			};
 		}),
 	);

@@ -100,7 +100,8 @@
 				{
 					"leftX": 142,
 					"rightX": 511,
-					"href": "https://github.com/leonsilicon/leonsilicon/blob/main/README.md#leonsilicon"
+					"href": "https://github.com/leonsilicon/leonsilicon/blob/main/README.md#leonsilicon",
+					"imgSrc": "${README_MD_SRC}"
 				},
 				{
 					"leftX": 540,

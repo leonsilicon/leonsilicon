@@ -1,13 +1,14 @@
 #!/usr/bin/env tsx
 
-import { getMonorepoDirpath } from 'get-monorepo-root';
-import nullthrows from 'nullthrows-es';
+import ora from 'ora';
 import path from 'pathe';
 import sharp from 'sharp';
 import { generateImagePieces } from '../utils/image.ts';
-import { generateReadmeFile } from '../utils/readme.ts';
-
-const monorepoDirpath = nullthrows(getMonorepoDirpath(import.meta.url));
+import { monorepoDirpath } from '../utils/paths.ts';
+import {
+	convertReadmeMdToImage,
+	generateReadmeMarkdownFile,
+} from '../utils/readme.ts';
 
 const lightModeImageFilepath = path.join(
 	monorepoDirpath,
@@ -25,13 +26,22 @@ if (!imageWidth || !imageHeight) {
 	throw new Error('Could not get image dimensions');
 }
 
-const [lightModeImagePieces, darkModeImagePieces] = await Promise.all([
-	generateImagePieces({ imageFilepath: lightModeImageFilepath }),
-	generateImagePieces({ imageFilepath: darkModeImageFilepath }),
-]);
+const spinner = ora('Generating README images...').start();
 
-await generateReadmeFile({
+const [lightModeImagePieces, darkModeImagePieces, readmeMdImage] = await Promise
+	.all([
+		generateImagePieces({ imageFilepath: lightModeImageFilepath }),
+		generateImagePieces({ imageFilepath: darkModeImageFilepath }),
+		convertReadmeMdToImage({ imageWidth, imageHeight }),
+	]);
+
+spinner.text = 'Generating README...';
+
+await generateReadmeMarkdownFile({
 	lightModeImagePieces,
 	darkModeImagePieces,
 	imageWidth,
+	readmeMdImageFilepath: readmeMdImage.filepath,
 });
+
+spinner.succeed('README generated!');
