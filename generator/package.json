@@ -2,7 +2,8 @@
 	"name": "@-/generator",
 	"type": "module",
 	"imports": {
-		"#data/*": "./data/*"
+		"#data/*": "./data/*",
+		"#types": "./types/_.ts"
 	},
 	"scripts": {
 		"generate-readme": "./scripts/generate-readme.ts"
@@ -13,6 +14,7 @@
 		"hasha": "^6.0.0",
 		"get-monorepo-root": "^1.2.1",
 		"nullthrows-es": "^1.0.1",
+		"just-zip-it": "^3.2.0",
 		"outdent": "^0.8.0",
 		"pathe": "^1.1.2",
 		"playwright": "^1.43.1",

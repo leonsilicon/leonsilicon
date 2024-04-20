@@ -17,6 +17,9 @@ devDependencies:
   hasha:
     specifier: ^6.0.0
     version: 6.0.0
+  just-zip-it:
+    specifier: ^3.2.0
+    version: 3.2.0
   nullthrows-es:
     specifier: ^1.0.1
     version: 1.0.1
@@ -622,6 +625,10 @@ packages:
   /is-stream@3.0.0:
     resolution: {integrity: sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: true
+
+  /just-zip-it@3.2.0:
+    resolution: {integrity: sha512-ZJxc8mLz8XkaoOegJ237Xuo3ZQB5zUN/8BTXqalBJbh/uj+ahfJbOJKadJPmXDBbxHzh+MQYH43VxV5TlQvlfw==}
     dev: true
 
   /lru-cache@6.0.0:

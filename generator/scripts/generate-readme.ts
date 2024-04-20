@@ -8,18 +8,45 @@ import nullthrows from 'nullthrows-es';
 import { outdent } from 'outdent';
 import path from 'pathe';
 import sharp from 'sharp';
+import { generateImagePieces } from '../utils/image.ts';
+import { generateReadmeFile } from '../utils/readme.ts';
 
 const monorepoDirpath = nullthrows(getMonorepoDirpath(import.meta.url));
-const generatedDirpath = path.join(monorepoDirpath, 'generated');
 
+const lightModeImageFilepath = path.join(
+	monorepoDirpath,
+	'data/figma-exports/README (Light Mode).png',
+);
+const darkModeImageFilepath = path.join(
+	monorepoDirpath,
+	'data/figma-exports/README (Dark Mode).png',
+);
+
+const image = sharp(lightModeImageFilepath);
+const { width: imageWidth, height: imageHeight } = await image.metadata();
+
+if (!imageWidth || !imageHeight) {
+	throw new Error('Could not get image dimensions');
+}
+
+const [lightModeImagePieces, darkModeImagePieces] = await Promise.all([
+	generateImagePieces({ imageFilepath: lightModeImageFilepath }),
+	generateImagePieces({ imageFilepath: darkModeImageFilepath }),
+]);
+
+await generateReadmeFile({
+	lightModeImagePieces,
+	darkModeImagePieces,
+	imageWidth,
+});
+
+const generatedDirpath = path.join(monorepoDirpath, 'generated');
 await fs.promises.rm(generatedDirpath, { recursive: true, force: true });
 await fs.promises.mkdir(generatedDirpath, { recursive: true });
 
 const lineHeight = 6;
 
 let currentY = 0;
-const image = sharp(path.join(monorepoDirpath, 'data/image.png'));
-const { width: imageWidth, height: imageHeight } = await image.metadata();
 if (!imageWidth || !imageHeight) {
 	throw new Error('Could not get image dimensions');
 }
