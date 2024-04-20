@@ -83,7 +83,7 @@ export async function generateImagePieces(
 
 	const imagePieces: ImagePiece[] = await Promise.all(
 		crops.map(async (crop) => {
-			const { href, imgSrc, ...dimensions } = crop;
+			const { href,...dimensions } = crop;
 			const buffer = await image.clone().extract(dimensions).toFormat('png')
 				.toBuffer();
 			const bufferHash = await hash(buffer);
@@ -92,7 +92,7 @@ export async function generateImagePieces(
 				'generated',
 				`${bufferHash}.png`,
 			);
-			await fs.promises.writeFile(filepath, buffer);
+			const imgSrc = await fs.promises.writeFile(filepath, buffer);
 
 			return {
 				filepath,
