@@ -32,7 +32,7 @@ export async function generateReadmeFile({
 
 	const readme = zip(lightModeImagePieces, darkModeImagePieces).map(
 		([lightModeImagePiece, darkModeImagePiece]) => {
-			const href = lightModeImagePiece;
+			const { href } = lightModeImagePiece;
 			const imgHeight = getImgHeight(lightModeImagePiece.height);
 			const imgWidth = getImgWidth(lightModeImagePiece.width);
 

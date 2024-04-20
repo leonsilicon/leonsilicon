@@ -1,11 +1,7 @@
 #!/usr/bin/env tsx
 
-import imageConfig from '#data/image-config.json';
 import { getMonorepoDirpath } from 'get-monorepo-root';
-import { hash } from 'hasha';
-import fs from 'node:fs';
 import nullthrows from 'nullthrows-es';
-import { outdent } from 'outdent';
 import path from 'pathe';
 import sharp from 'sharp';
 import { generateImagePieces } from '../utils/image.ts';
